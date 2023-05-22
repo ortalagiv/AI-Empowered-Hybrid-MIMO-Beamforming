@@ -10,11 +10,11 @@ Please cite our paper if the code is used for publishing research.
 
 - [Introduction](#introduction)
 - [Folders Structure](#folders-structure)
-  * [Manifold Optimization](#manifold_optimization)
-  * [Alternating Optimization](#alternating_optimization)
-  * [Blackbox CNN](#blackbox_cnn)
+  * [Manifold Optimization](#manifold-optimization)
+  * [Alternating Optimization](#alternating-optimization)
+  * [Blackbox CNN](#blackbox-cnn)
   * [ManNet](#mannet)
-  * [Unfolded PGA](#unfolded_pga)
+  * [Unfolded PGA](#unfolded-pga)
 
 
 # Introduction
