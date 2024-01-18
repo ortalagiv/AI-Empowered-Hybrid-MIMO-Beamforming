@@ -2,7 +2,10 @@
 clear all; clc;
 
 Nt = 12; Nrf_t = 2; Nr = 4; Nrf_r = 2; Ns = 4; Pow = Ns; K = 16;
-H1 = load('ch5_te.mat'); H = H1.H;
+
+%dataset generation - you can also upload your own
+datasize = 100;
+H = randn(datasize, Ns, Nt, K);
 
 for snr = linspace(-5,10,16)
     noisevar = 10^(-0.1*snr);
