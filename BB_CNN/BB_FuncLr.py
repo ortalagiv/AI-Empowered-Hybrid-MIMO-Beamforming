@@ -73,12 +73,12 @@ def loss_caclu(fvec_est, batch_H):
         for k in range(K):
             U, S, VH = torch.linalg.svd(Hii[k, :, :], full_matrices=False)
             Woptk = U[:, 0:Ns]
-            V = VH.H
+            V = VH.transpose(0,1).conj()
             Foptk = V[:, 0:Ns]
             FBBk = torch.matmul(FRF_pinv, Foptk)  # compute BB precoder
             # tmp = matmul_complex(FRF, FBBk)
             tmp_matrix = matmul_complex(torch.squeeze(Hii[k, :, :]), matmul_complex(FRF, FBBk))
-            tmp2 = torch.eye(Nr) + SNR / Ns * matmul_complex(tmp_matrix, tmp_matrix.H)
+            tmp2 = torch.eye(Nr) + SNR / Ns * matmul_complex(tmp_matrix, tmp_matrix.transpose(0,1).conj())
             Rk = torch.real(torch.log(torch.linalg.det(tmp2)))
             Rate = Rate + Rk
         loss_ii = Rate / K
@@ -116,7 +116,7 @@ def loss_caclu_bb(fvec_est, Fbb_est, batch_H):
             Fbb_batch[ii, :, :, k] = Fbbk
 
             tmp_matrix = matmul_complex(torch.squeeze(Hii[k, :, :]), matmul_complex(FRF, Fbbk))
-            tmp2 = torch.eye(Nr) + SNR / Ns * matmul_complex(tmp_matrix, tmp_matrix.H)
+            tmp2 = torch.eye(Nr) + SNR / Ns * matmul_complex(tmp_matrix, tmp_matrix.transpose(0,1).conj())
             Rk = torch.real(torch.log(torch.linalg.det(tmp2)))
             Rate = Rate + Rk
 
@@ -303,7 +303,7 @@ def FLOPs_Fc(NN_in, NN_out):
     FLOPs_Num = 2 * NN_in * NN_out
     return FLOPs_Num
 if __name__ == '__main__':
-    # test = My_dataset(file_dir=dataset_file, file_name='H_train.npy')
+    test = My_dataset(file_dir=dataset_file, file_name='H_train.npy')
     # test.__getitem__(1)
     FLOPs_model = FLOPs_Cov(C_in=3, C_out=16,kernel_size=3, FL=64, FW=12)
     + FLOPs_Cov(C_in=16, C_out=32, kernel_size=3, FL=31, FW=10)
